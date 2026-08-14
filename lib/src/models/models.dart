@@ -32,6 +32,7 @@ class Project {
   final String role;
   final List<String> techStack;
   final String? link;
+  final String? imageAsset;
 
   const Project({
     required this.title,
@@ -39,6 +40,7 @@ class Project {
     required this.role,
     required this.techStack,
     this.link,
+    this.imageAsset,
   });
 }
 

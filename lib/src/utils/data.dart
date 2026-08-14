@@ -71,25 +71,49 @@ class Data {
 
   static const List<Project> projects = [
     Project(
-      title: "Corporate site for Uksatse",
+      title: "Himalayan Sound",
       description:
-          "Customization and development of the corporate website using WordPress.",
-      role: "Developer",
-      techStack: ["WordPress", "PHP", "CSS"],
-    ),
-    Project(
-      title: "Travel Platform",
-      description:
-          "A large-scale travel project similar to TripAdvisor. Focused on backend logic, privacy, and API integration.",
-      role: "Backend Lead",
-      techStack: ["PHP", "Yii2", "MySQL", "API"],
-    ),
-    Project(
-      title: "Cheesedom",
-      description:
-          "Delivery website for craft cheese. Built from scratch without plugins.",
+          "E-commerce for authentic Himalayan singing bowls: catalog, cart, gallery, and a multilingual storefront.",
       role: "Full Stack Developer",
-      techStack: ["HTML", "CSS", "JS", "PHP", "MySQL"],
+      techStack: ["Next.js", "React", "TypeScript", "Supabase", "Tailwind CSS"],
+      link: "https://himalayan-sound.com",
+      imageAsset: "assets/projects/himalayan-sound.png",
+    ),
+    Project(
+      title: "OPAD",
+      description:
+          "Flutter web portal for the Odessa regional air traffic controllers' union: articles, documents, and personal statistics.",
+      role: "Flutter Developer",
+      techStack: ["Flutter", "Dart", "MySQL"],
+      link: "https://opad.com.ua",
+      imageAsset: "assets/projects/opad.png",
+    ),
+    Project(
+      title: "Imgscrap",
+      description:
+          "Batch OCR from images with Excel export. Open the live app to try it in the browser.",
+      role: "Flutter Developer",
+      techStack: ["Flutter", "Firebase", "OCR"],
+      link: "https://imgscrap.web.app",
+      imageAsset: "assets/projects/imgscrap.png",
+    ),
+    Project(
+      title: "Brackets and Symbols",
+      description:
+          "Searchable glossary of programming brackets, operators, and symbol names. Copy any symbol in one click.",
+      role: "Developer",
+      techStack: ["HTML", "CSS", "JavaScript"],
+      link: "https://ukccatc.github.io/brackets-and-symbols/",
+      imageAsset: "assets/projects/brackets-and-symbols.png",
+    ),
+    Project(
+      title: "NLBL Converter",
+      description:
+          "Convert NiceLabel and ZebraDesigner .nlbl files to PNG in the browser. Preview, edit, and download labels.",
+      role: "Developer",
+      techStack: ["Python", "FastAPI", "Docker", "Google Cloud"],
+      link: "https://nlbl-preview-in7ecrzuxq-ew.a.run.app/login",
+      imageAsset: "assets/projects/nlbl.png",
     ),
   ];
 
