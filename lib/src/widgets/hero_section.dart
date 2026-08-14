@@ -26,10 +26,11 @@ class HeroSection extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         final isNarrow = constraints.maxWidth < 800;
-        return Container(
-          padding: const EdgeInsets.symmetric(
-            horizontal: AppConstants.paddingDesktop,
-            vertical: 100,
+        return Padding(
+          padding: AppConstants.pagePadding(
+            context,
+            verticalDesktop: 100,
+            verticalMobile: 64,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

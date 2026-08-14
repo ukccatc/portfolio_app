@@ -1,6 +1,29 @@
 import 'package:flutter/material.dart';
 import '../utils/constants.dart';
 
+class BrandLogo extends StatelessWidget {
+  const BrandLogo({super.key, this.height = 44, this.onTap});
+
+  final double height;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final image = Image.asset(
+      AppConstants.logoAsset,
+      height: height,
+      fit: BoxFit.contain,
+      filterQuality: FilterQuality.high,
+      semanticLabel: 'Progressive Development Solutions',
+    );
+    if (onTap == null) return image;
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(onTap: onTap, child: image),
+    );
+  }
+}
+
 class NavBar extends StatelessWidget {
   final Function(int) onNavItemTap;
 
@@ -12,9 +35,8 @@ class NavBar extends StatelessWidget {
       builder: (context, constraints) {
         if (constraints.maxWidth > 800) {
           return _DesktopNavBar(onNavItemTap: onNavItemTap);
-        } else {
-          return _MobileNavBar(onNavItemTap: onNavItemTap);
         }
+        return _MobileNavBar(onNavItemTap: onNavItemTap);
       },
     );
   }
@@ -30,24 +52,23 @@ class _DesktopNavBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: AppConstants.paddingDesktop,
-        vertical: 20,
+        vertical: 12,
       ),
-      color: AppColors.surface,
+      decoration: const BoxDecoration(
+        color: AppColors.surface,
+        border: Border(bottom: BorderSide(color: Color(0xFFE6E8E8))),
+      ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("Oleg Rostovtsev", style: AppTextStyles.subHeader),
-          Row(
-            children: [
-              _NavItem(title: "Home", onTap: () => onNavItemTap(0)),
-              _NavItem(title: "Skills", onTap: () => onNavItemTap(1)),
-              _NavItem(title: "Experience", onTap: () => onNavItemTap(2)),
-              _NavItem(title: "Projects", onTap: () => onNavItemTap(3)),
-              _NavItem(title: "Education", onTap: () => onNavItemTap(4)),
-              _NavItem(title: "About", onTap: () => onNavItemTap(5)),
-              _NavItem(title: "Contact", onTap: () => onNavItemTap(6)),
-            ],
-          ),
+          BrandLogo(height: 48, onTap: () => onNavItemTap(0)),
+          const Spacer(),
+          _NavItem(title: "Home", onTap: () => onNavItemTap(0)),
+          _NavItem(title: "Skills", onTap: () => onNavItemTap(1)),
+          _NavItem(title: "Experience", onTap: () => onNavItemTap(2)),
+          _NavItem(title: "Projects", onTap: () => onNavItemTap(3)),
+          _NavItem(title: "Education", onTap: () => onNavItemTap(4)),
+          _NavItem(title: "About", onTap: () => onNavItemTap(5)),
+          _NavItem(title: "Contact", onTap: () => onNavItemTap(6)),
         ],
       ),
     );
@@ -64,15 +85,23 @@ class _MobileNavBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: AppConstants.paddingMobile,
-        vertical: 16,
+        vertical: 10,
       ),
-      color: AppColors.surface,
+      decoration: const BoxDecoration(
+        color: AppColors.surface,
+        border: Border(bottom: BorderSide(color: Color(0xFFE6E8E8))),
+      ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text("Oleg Rostovtsev", style: AppTextStyles.subHeader),
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: BrandLogo(height: 36, onTap: () => onNavItemTap(0)),
+            ),
+          ),
           PopupMenuButton<int>(
-            icon: const Icon(Icons.menu),
+            icon: const Icon(Icons.menu, color: AppColors.textPrimary),
+            tooltip: 'Open menu',
             onSelected: onNavItemTap,
             itemBuilder: (context) => [
               const PopupMenuItem(value: 0, child: Text("Home")),
@@ -90,19 +119,37 @@ class _MobileNavBar extends StatelessWidget {
   }
 }
 
-class _NavItem extends StatelessWidget {
+class _NavItem extends StatefulWidget {
   final String title;
   final VoidCallback onTap;
 
   const _NavItem({required this.title, required this.onTap});
 
   @override
+  State<_NavItem> createState() => _NavItemState();
+}
+
+class _NavItemState extends State<_NavItem> {
+  bool _hovered = false;
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 24),
-      child: InkWell(
-        onTap: onTap,
-        child: Text(title, style: AppTextStyles.navLink),
+      padding: const EdgeInsets.only(left: 20),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (_) => setState(() => _hovered = true),
+        onExit: (_) => setState(() => _hovered = false),
+        child: GestureDetector(
+          onTap: widget.onTap,
+          child: AnimatedDefaultTextStyle(
+            duration: const Duration(milliseconds: 150),
+            style: AppTextStyles.navLink.copyWith(
+              color: _hovered ? AppColors.primary : AppColors.textPrimary,
+            ),
+            child: Text(widget.title),
+          ),
+        ),
       ),
     );
   }

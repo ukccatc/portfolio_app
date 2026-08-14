@@ -8,13 +8,8 @@ class AboutSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppConstants.paddingDesktop,
-        vertical: 60,
-      ),
-      width: double.infinity,
-      color: AppColors.surface,
+    return Padding(
+      padding: AppConstants.pagePadding(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

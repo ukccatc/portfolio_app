@@ -11,6 +11,10 @@ class PortfolioApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final radius = RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(8),
+    );
+
     return MaterialApp(
       title: 'Oleg Rostovtsev - Portfolio',
       debugShowCheckedModeBanner: false,
@@ -27,6 +31,29 @@ class PortfolioApp extends StatelessWidget {
           displayLarge: AppTextStyles.header,
           displayMedium: AppTextStyles.subHeader,
           bodyLarge: AppTextStyles.body,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.primary,
+            foregroundColor: Colors.white,
+            elevation: 0,
+            padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
+            minimumSize: const Size(44, 44),
+            shape: radius,
+          ),
+        ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: OutlinedButton.styleFrom(
+            foregroundColor: AppColors.primary,
+            side: const BorderSide(color: AppColors.primary),
+            padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
+            minimumSize: const Size(44, 44),
+            shape: radius,
+          ),
+        ),
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: AppColors.primary,
+          foregroundColor: Colors.white,
         ),
       ),
       home: const HomePage(),

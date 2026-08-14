@@ -10,13 +10,8 @@ class SkillsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final categories = Data.skills.map((s) => s.category).toSet().toList();
 
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppConstants.paddingDesktop,
-        vertical: 60,
-      ),
-      width: double.infinity,
-      color: AppColors.surface,
+    return Padding(
+      padding: AppConstants.pagePadding(context),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
