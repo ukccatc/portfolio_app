@@ -93,33 +93,35 @@ class _ExperienceCard extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(experience.description, style: AppTextStyles.body(context)),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
-            children: experience.techStack
-                .map(
-                  (tech) => Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: colors.background,
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: colors.border),
-                    ),
-                    child: Text(
-                      tech,
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: colors.textSecondary,
+          if (experience.techStack.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: experience.techStack
+                  .map(
+                    (tech) => Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: colors.background,
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(color: colors.border),
+                      ),
+                      child: Text(
+                        tech,
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: colors.textSecondary,
+                        ),
                       ),
                     ),
-                  ),
-                )
-                .toList(),
-          ),
+                  )
+                  .toList(),
+            ),
+          ],
         ],
       ),
     );
