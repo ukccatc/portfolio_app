@@ -1,11 +1,11 @@
 {
-    "name": "portfolio_app",
-    "short_name": "portfolio_app",
+    "name": "Oleg Rostovtsev - Portfolio",
+    "short_name": "Oleg Rostovtsev",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#F8FAFC",
+    "theme_color": "#2563EB",
+    "description": "Oleg Rostovtsev - Software Developer / Flutter & Web. Portfolio showcasing skills, experience, and projects.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
