@@ -16,27 +16,38 @@ class Data {
   static Uri get cvUri => Uri.base.resolve(cvFileName);
 
   static const List<Skill> skills = [
-    // Backend
-    Skill(name: "PHP", category: "Backend"),
-    Skill(name: "Yii2", category: "Backend"),
-    Skill(name: "WordPress", category: "Backend"),
-    Skill(name: "Drupal", category: "Backend"),
-    Skill(name: "MySQL", category: "Backend"),
-    Skill(name: "Redis", category: "Backend"),
-    Skill(name: "Sphinx", category: "Backend"),
+    // Mobile & Web first so this category renders at the top
+    Skill(name: "Flutter", category: "Mobile & Web"),
+    Skill(name: "Dart", category: "Mobile & Web"),
+    Skill(name: "Firebase", category: "Mobile & Web"),
+    Skill(name: "Next.js", category: "Mobile & Web"),
+    Skill(name: "React", category: "Mobile & Web"),
+    Skill(name: "TypeScript", category: "Mobile & Web"),
+    Skill(name: "HTML5", category: "Mobile & Web"),
+    Skill(name: "CSS3", category: "Mobile & Web"),
+    Skill(name: "JavaScript", category: "Mobile & Web"),
+    Skill(name: "Tailwind CSS", category: "Mobile & Web"),
+    Skill(name: "jQuery", category: "Mobile & Web", isLegacy: true),
+    Skill(name: "Bootstrap", category: "Mobile & Web", isLegacy: true),
 
-    // Frontend
-    Skill(name: "HTML5", category: "Frontend"),
-    Skill(name: "CSS3", category: "Frontend"),
-    Skill(name: "JavaScript", category: "Frontend"),
-    Skill(name: "jQuery", category: "Frontend", isLegacy: true),
-    Skill(name: "Bootstrap", category: "Frontend"),
-    Skill(name: "Flutter", category: "Frontend"), // Added since we are using it
-    // DevOps/Tools
+    Skill(name: "REST APIs", category: "Backend"),
+    Skill(name: "Python", category: "Backend"),
+    Skill(name: "FastAPI", category: "Backend"),
+    Skill(name: "Supabase", category: "Backend"),
+    Skill(name: "MySQL", category: "Backend"),
+    Skill(name: "Pimcore", category: "Backend"),
+    Skill(name: "PHP", category: "Backend", isLegacy: true),
+    Skill(name: "Yii2", category: "Backend", isLegacy: true),
+    Skill(name: "Symfony", category: "Backend", isLegacy: true),
+    Skill(name: "WordPress", category: "Backend", isLegacy: true),
+    Skill(name: "Drupal", category: "Backend", isLegacy: true),
+
     Skill(name: "Git", category: "DevOps"),
     Skill(name: "Docker", category: "DevOps"),
-    Skill(name: "Vagrant", category: "DevOps"),
-    Skill(name: "Composer", category: "DevOps"),
+    Skill(name: "GitHub Actions", category: "DevOps"),
+    Skill(name: "Azure DevOps", category: "DevOps"),
+    Skill(name: "Google Cloud", category: "DevOps"),
+    Skill(name: "Vagrant", category: "DevOps", isLegacy: true),
   ];
 
   static const List<Experience> experience = [
