@@ -9,13 +9,26 @@ class BrandLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final image = Image.asset(
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    Widget image = Image.asset(
       AppConstants.logoAsset,
       height: height,
       fit: BoxFit.contain,
       filterQuality: FilterQuality.high,
       semanticLabel: 'Progressive Development Solutions',
     );
+    if (isDark) {
+      image = DecoratedBox(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+          child: image,
+        ),
+      );
+    }
     if (onTap == null) return image;
     return MouseRegion(
       cursor: SystemMouseCursors.click,
@@ -26,37 +39,75 @@ class BrandLogo extends StatelessWidget {
 
 class NavBar extends StatelessWidget {
   final Function(int) onNavItemTap;
+  final VoidCallback onToggleTheme;
+  final ThemeMode themeMode;
 
-  const NavBar({super.key, required this.onNavItemTap});
+  const NavBar({
+    super.key,
+    required this.onNavItemTap,
+    required this.onToggleTheme,
+    required this.themeMode,
+  });
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         if (constraints.maxWidth > 800) {
-          return _DesktopNavBar(onNavItemTap: onNavItemTap);
+          return _DesktopNavBar(
+            onNavItemTap: onNavItemTap,
+            onToggleTheme: onToggleTheme,
+            themeMode: themeMode,
+          );
         }
-        return _MobileNavBar(onNavItemTap: onNavItemTap);
+        return _MobileNavBar(
+          onNavItemTap: onNavItemTap,
+          onToggleTheme: onToggleTheme,
+          themeMode: themeMode,
+        );
       },
+    );
+  }
+}
+
+class _ThemeToggle extends StatelessWidget {
+  const _ThemeToggle({required this.onToggleTheme});
+
+  final VoidCallback onToggleTheme;
+
+  @override
+  Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    return IconButton(
+      tooltip: isDark ? 'Switch to light theme' : 'Switch to dark theme',
+      onPressed: onToggleTheme,
+      icon: Icon(isDark ? Icons.light_mode_outlined : Icons.dark_mode_outlined),
     );
   }
 }
 
 class _DesktopNavBar extends StatelessWidget {
   final Function(int) onNavItemTap;
+  final VoidCallback onToggleTheme;
+  final ThemeMode themeMode;
 
-  const _DesktopNavBar({required this.onNavItemTap});
+  const _DesktopNavBar({
+    required this.onNavItemTap,
+    required this.onToggleTheme,
+    required this.themeMode,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: AppConstants.paddingDesktop,
         vertical: 12,
       ),
-      decoration: const BoxDecoration(
-        color: AppColors.surface,
-        border: Border(bottom: BorderSide(color: Color(0xFFE6E8E8))),
+      decoration: BoxDecoration(
+        color: colors.surface,
+        border: Border(bottom: BorderSide(color: colors.border)),
       ),
       child: Row(
         children: [
@@ -69,6 +120,8 @@ class _DesktopNavBar extends StatelessWidget {
           _NavItem(title: "Education", onTap: () => onNavItemTap(4)),
           _NavItem(title: "About", onTap: () => onNavItemTap(5)),
           _NavItem(title: "Contact", onTap: () => onNavItemTap(6)),
+          const SizedBox(width: 8),
+          _ThemeToggle(onToggleTheme: onToggleTheme),
         ],
       ),
     );
@@ -77,19 +130,26 @@ class _DesktopNavBar extends StatelessWidget {
 
 class _MobileNavBar extends StatelessWidget {
   final Function(int) onNavItemTap;
+  final VoidCallback onToggleTheme;
+  final ThemeMode themeMode;
 
-  const _MobileNavBar({required this.onNavItemTap});
+  const _MobileNavBar({
+    required this.onNavItemTap,
+    required this.onToggleTheme,
+    required this.themeMode,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: AppConstants.paddingMobile,
         vertical: 10,
       ),
-      decoration: const BoxDecoration(
-        color: AppColors.surface,
-        border: Border(bottom: BorderSide(color: Color(0xFFE6E8E8))),
+      decoration: BoxDecoration(
+        color: colors.surface,
+        border: Border(bottom: BorderSide(color: colors.border)),
       ),
       child: Row(
         children: [
@@ -99,8 +159,9 @@ class _MobileNavBar extends StatelessWidget {
               child: BrandLogo(height: 36, onTap: () => onNavItemTap(0)),
             ),
           ),
+          _ThemeToggle(onToggleTheme: onToggleTheme),
           PopupMenuButton<int>(
-            icon: const Icon(Icons.menu, color: AppColors.textPrimary),
+            icon: Icon(Icons.menu, color: colors.textPrimary),
             tooltip: 'Open menu',
             onSelected: onNavItemTap,
             itemBuilder: (context) => [
@@ -134,6 +195,7 @@ class _NavItemState extends State<_NavItem> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Padding(
       padding: const EdgeInsets.only(left: 20),
       child: MouseRegion(
@@ -144,8 +206,8 @@ class _NavItemState extends State<_NavItem> {
           onTap: widget.onTap,
           child: AnimatedDefaultTextStyle(
             duration: const Duration(milliseconds: 150),
-            style: AppTextStyles.navLink.copyWith(
-              color: _hovered ? AppColors.primary : AppColors.textPrimary,
+            style: AppTextStyles.navLink(context).copyWith(
+              color: _hovered ? colors.primary : colors.textPrimary,
             ),
             child: Text(widget.title),
           ),

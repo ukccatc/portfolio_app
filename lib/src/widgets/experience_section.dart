@@ -13,7 +13,7 @@ class ExperienceSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Work Experience", style: AppTextStyles.header),
+          Text("Work Experience", style: AppTextStyles.header(context)),
           const SizedBox(height: 40),
           ...Data.experience.map((exp) => _ExperienceCard(experience: exp)),
         ],
@@ -29,15 +29,16 @@ class _ExperienceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       margin: const EdgeInsets.only(bottom: 32),
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: colors.surface,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: colors.shadow,
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -52,21 +53,21 @@ class _ExperienceCard extends StatelessWidget {
               final roleAndCompany = Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(experience.role, style: AppTextStyles.subHeader),
+                  Text(experience.role, style: AppTextStyles.subHeader(context)),
                   const SizedBox(height: 4),
                   Text(
                     experience.company,
-                    style: AppTextStyles.body.copyWith(
+                    style: AppTextStyles.body(context).copyWith(
                       fontWeight: FontWeight.bold,
-                      color: AppColors.primary,
+                      color: colors.primary,
                     ),
                   ),
                 ],
               );
               final period = Text(
                 experience.period,
-                style: AppTextStyles.body.copyWith(
-                  color: AppColors.textSecondary,
+                style: AppTextStyles.body(context).copyWith(
+                  color: colors.textSecondary,
                 ),
               );
 
@@ -91,7 +92,7 @@ class _ExperienceCard extends StatelessWidget {
             },
           ),
           const SizedBox(height: 16),
-          Text(experience.description, style: AppTextStyles.body),
+          Text(experience.description, style: AppTextStyles.body(context)),
           const SizedBox(height: 16),
           Wrap(
             spacing: 8,
@@ -104,15 +105,15 @@ class _ExperienceCard extends StatelessWidget {
                       vertical: 6,
                     ),
                     decoration: BoxDecoration(
-                      color: AppColors.background,
+                      color: colors.background,
                       borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: Colors.grey[300]!),
+                      border: Border.all(color: colors.border),
                     ),
                     child: Text(
                       tech,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12,
-                        color: AppColors.textSecondary,
+                        color: colors.textSecondary,
                       ),
                     ),
                   ),

@@ -15,11 +15,11 @@ class SkillsSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Skills", style: AppTextStyles.header),
+          Text("Skills", style: AppTextStyles.header(context)),
           const SizedBox(height: 16),
           Text(
             "My technical expertise across various domains.",
-            style: AppTextStyles.body,
+            style: AppTextStyles.body(context),
           ),
           const SizedBox(height: 40),
           ...categories.map((category) {
@@ -29,7 +29,7 @@ class SkillsSection extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(category, style: AppTextStyles.subHeader),
+                Text(category, style: AppTextStyles.subHeader(context)),
                 const SizedBox(height: 16),
                 Wrap(
                   spacing: 12,
@@ -55,13 +55,14 @@ class _SkillChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Chip(
       label: Text(skill.name),
       backgroundColor: skill.isLegacy
-          ? Colors.grey[200]
-          : AppColors.primary.withValues(alpha: 0.1),
+          ? colors.mutedFill
+          : colors.primary.withValues(alpha: 0.15),
       labelStyle: TextStyle(
-        color: skill.isLegacy ? Colors.grey : AppColors.primary,
+        color: skill.isLegacy ? colors.textSecondary : colors.primary,
         fontWeight: FontWeight.w500,
       ),
       side: BorderSide.none,

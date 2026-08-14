@@ -46,7 +46,7 @@ class ContactSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Contact", style: AppTextStyles.header),
+          Text("Contact", style: AppTextStyles.header(context)),
           const SizedBox(height: 40),
           LayoutBuilder(
             builder: (context, constraints) {
@@ -197,14 +197,16 @@ class _ContactFormState extends State<_ContactForm> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: AppColors.surface,
+        color: colors.surface,
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: colors.border),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: colors.shadow,
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -213,9 +215,13 @@ class _ContactFormState extends State<_ContactForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             "Send me a message",
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: colors.textPrimary,
+            ),
           ),
           const SizedBox(height: 24),
           TextField(
@@ -249,8 +255,8 @@ class _ContactFormState extends State<_ContactForm> {
             child: ElevatedButton(
               onPressed: _sendMessage,
               style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.primary,
-                foregroundColor: Colors.white,
+                backgroundColor: colors.primary,
+                foregroundColor: colors.onPrimary,
                 padding: const EdgeInsets.symmetric(vertical: 16),
               ),
               child: const Text("Send Message"),
@@ -279,15 +285,16 @@ class _ContactItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Row(
       children: [
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: AppColors.primary.withValues(alpha: 0.1),
+            color: colors.primary.withValues(alpha: 0.15),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Icon(icon, color: AppColors.primary),
+          child: Icon(icon, color: colors.primary),
         ),
         const SizedBox(width: 16),
         Column(
@@ -295,8 +302,8 @@ class _ContactItem extends StatelessWidget {
           children: [
             Text(
               title,
-              style: AppTextStyles.body.copyWith(
-                color: AppColors.textSecondary,
+              style: AppTextStyles.body(context).copyWith(
+                color: colors.textSecondary,
                 fontSize: 14,
               ),
             ),
@@ -306,16 +313,16 @@ class _ContactItem extends StatelessWidget {
                   onTap: onTap,
                   child: Text(
                     content,
-                    style: AppTextStyles.subHeader.copyWith(fontSize: 18),
+                    style: AppTextStyles.subHeader(context).copyWith(fontSize: 18),
                   ),
                 ),
                 if (onCopy != null) ...[
                   const SizedBox(width: 8),
                   IconButton(
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.copy,
                       size: 16,
-                      color: AppColors.textSecondary,
+                      color: colors.textSecondary,
                     ),
                     onPressed: onCopy,
                     tooltip: "Copy",
@@ -353,10 +360,14 @@ class _SocialButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.grey[300]!),
+          border: Border.all(color: AppColors.of(context).border),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: FaIcon(icon, size: 24, color: AppColors.textPrimary),
+        child: FaIcon(
+          icon,
+          size: 24,
+          color: AppColors.of(context).textPrimary,
+        ),
       ),
     );
   }

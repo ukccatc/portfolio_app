@@ -37,24 +37,29 @@ class HeroSection extends StatelessWidget {
             children: [
               Text(
                 "Hello, I'm",
-                style: AppTextStyles.subHeader.copyWith(color: AppColors.accent),
+                style: AppTextStyles.subHeader(context).copyWith(
+                  color: AppColors.of(context).accent,
+                ),
               ),
               const SizedBox(height: 16),
               Text(
                 Data.name,
-                style: AppTextStyles.header.copyWith(
+                style: AppTextStyles.header(context).copyWith(
                   fontSize: isNarrow ? 36 : 64,
                 ),
               ),
               const SizedBox(height: 16),
               Text(
                 Data.role,
-                style: AppTextStyles.subHeader.copyWith(
-                  color: AppColors.textSecondary,
+                style: AppTextStyles.subHeader(context).copyWith(
+                  color: AppColors.of(context).textSecondary,
                 ),
               ),
               const SizedBox(height: 32),
-              Text(Data.goal, style: AppTextStyles.body.copyWith(fontSize: 20)),
+              Text(
+                Data.goal,
+                style: AppTextStyles.body(context).copyWith(fontSize: 20),
+              ),
               const SizedBox(height: 48),
               Wrap(
                 spacing: 16,
@@ -67,8 +72,8 @@ class HeroSection extends StatelessWidget {
                       'Could not open CV',
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.primary,
-                      foregroundColor: Colors.white,
+                      backgroundColor: AppColors.of(context).primary,
+                      foregroundColor: AppColors.of(context).onPrimary,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 32,
                         vertical: 20,

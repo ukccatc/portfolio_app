@@ -11,7 +11,14 @@ import '../widgets/about_section.dart';
 import '../widgets/contact_section.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({
+    super.key,
+    required this.onToggleTheme,
+    required this.themeMode,
+  });
+
+  final VoidCallback onToggleTheme;
+  final ThemeMode themeMode;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -30,16 +37,6 @@ class _HomePageState extends State<HomePage> {
     EducationSection(),
     AboutSection(),
     ContactSection(),
-  ];
-
-  static const List<Color> _sectionColors = [
-    AppColors.background,
-    AppColors.surface,
-    AppColors.background,
-    AppColors.surface,
-    AppColors.background,
-    AppColors.surface,
-    AppColors.background,
   ];
 
   int _topIndex = 0;
@@ -77,22 +74,37 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
+    final sectionColors = [
+      colors.background,
+      colors.surface,
+      colors.background,
+      colors.surface,
+      colors.background,
+      colors.surface,
+      colors.background,
+    ];
+
     return Scaffold(
       body: Column(
         children: [
-          NavBar(onNavItemTap: _scrollToSection),
+          NavBar(
+            onNavItemTap: _scrollToSection,
+            onToggleTheme: widget.onToggleTheme,
+            themeMode: widget.themeMode,
+          ),
           Expanded(
             child: ScrollablePositionedList.builder(
               itemCount: _sections.length + 1,
               itemBuilder: (context, index) {
                 if (index == _sections.length) {
-                  return const ColoredBox(
-                    color: AppColors.surface,
-                    child: _SiteFooter(),
+                  return ColoredBox(
+                    color: colors.surface,
+                    child: const _SiteFooter(),
                   );
                 }
                 return ColoredBox(
-                  color: _sectionColors[index],
+                  color: sectionColors[index],
                   child: Center(
                     child: ConstrainedBox(
                       constraints: const BoxConstraints(
@@ -125,9 +137,10 @@ class _SiteFooter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return DecoratedBox(
-      decoration: const BoxDecoration(
-        border: Border(top: BorderSide(color: Color(0xFFE6E8E8))),
+      decoration: BoxDecoration(
+        border: Border(top: BorderSide(color: colors.border)),
       ),
       child: Center(
         child: ConstrainedBox(
@@ -148,8 +161,8 @@ class _SiteFooter extends StatelessWidget {
                 const BrandLogo(height: 36),
                 Text(
                   'Oleg Rostovtsev',
-                  style: AppTextStyles.body.copyWith(
-                    color: AppColors.textPrimary,
+                  style: AppTextStyles.body(context).copyWith(
+                    color: colors.textPrimary,
                   ),
                 ),
               ],

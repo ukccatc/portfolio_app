@@ -14,7 +14,7 @@ class ProjectsSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Projects", style: AppTextStyles.header),
+          Text("Projects", style: AppTextStyles.header(context)),
           const SizedBox(height: 40),
           LayoutBuilder(
             builder: (context, constraints) {
@@ -47,12 +47,13 @@ class _ProjectCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: colors.background,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey[200]!),
+        border: Border.all(color: colors.border),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,27 +64,27 @@ class _ProjectCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   project.title,
-                  style: AppTextStyles.subHeader.copyWith(fontSize: 20),
+                  style: AppTextStyles.subHeader(context).copyWith(fontSize: 20),
                 ),
               ),
               if (project.link != null)
-                const FaIcon(
+                FaIcon(
                   FontAwesomeIcons.github,
                   size: 20,
-                  color: AppColors.textSecondary,
+                  color: colors.textSecondary,
                 ),
             ],
           ),
           const SizedBox(height: 8),
           Text(
             project.role,
-            style: AppTextStyles.body.copyWith(
-              color: AppColors.primary,
+            style: AppTextStyles.body(context).copyWith(
+              color: colors.primary,
               fontWeight: FontWeight.bold,
             ),
           ),
           const SizedBox(height: 16),
-          Text(project.description, style: AppTextStyles.body),
+          Text(project.description, style: AppTextStyles.body(context)),
           const SizedBox(height: 24),
           Wrap(
             spacing: 8,
@@ -96,15 +97,15 @@ class _ProjectCard extends StatelessWidget {
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: colors.surface,
                       borderRadius: BorderRadius.circular(4),
-                      border: Border.all(color: Colors.grey[300]!),
+                      border: Border.all(color: colors.border),
                     ),
                     child: Text(
                       tech,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 12,
-                        color: AppColors.textSecondary,
+                        color: colors.textSecondary,
                       ),
                     ),
                   ),

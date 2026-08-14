@@ -13,7 +13,7 @@ class AboutSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("About Me", style: AppTextStyles.header),
+          Text("About Me", style: AppTextStyles.header(context)),
           const SizedBox(height: 40),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,14 +25,13 @@ class AboutSection extends StatelessWidget {
                   children: [
                     Text(
                       Data.aboutText,
-                      style: AppTextStyles.body.copyWith(fontSize: 18),
+                      style: AppTextStyles.body(context).copyWith(fontSize: 18),
                     ),
                     const SizedBox(height: 32),
-                    const Text(
+                    Text(
                       "Interests",
-                      style: TextStyle(
+                      style: AppTextStyles.subHeader(context).copyWith(
                         fontSize: 20,
-                        fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -68,14 +67,14 @@ class AboutSection extends StatelessWidget {
                   child: Container(
                     height: 300,
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withValues(alpha: 0.1),
+                      color: AppColors.of(context).primary.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: const Center(
+                    child: Center(
                       child: Icon(
                         Icons.person,
                         size: 100,
-                        color: AppColors.primary,
+                        color: AppColors.of(context).primary,
                       ),
                     ),
                   ),
@@ -97,19 +96,20 @@ class _InterestChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       decoration: BoxDecoration(
-        color: AppColors.background,
+        color: colors.background,
         borderRadius: BorderRadius.circular(30),
-        border: Border.all(color: Colors.grey[300]!),
+        border: Border.all(color: colors.border),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          FaIcon(icon, size: 16, color: AppColors.primary),
+          FaIcon(icon, size: 16, color: colors.primary),
           const SizedBox(width: 8),
-          Text(label, style: AppTextStyles.body),
+          Text(label, style: AppTextStyles.body(context)),
         ],
       ),
     );

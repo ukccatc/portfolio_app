@@ -14,7 +14,7 @@ class EducationSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Education & Courses", style: AppTextStyles.header),
+          Text("Education & Courses", style: AppTextStyles.header(context)),
           const SizedBox(height: 40),
           ...Data.education.map((edu) => _EducationCard(education: edu)),
         ],
@@ -30,6 +30,7 @@ class _EducationCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.of(context);
     return Padding(
       padding: const EdgeInsets.only(bottom: 32),
       child: Row(
@@ -38,19 +39,19 @@ class _EducationCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.surface,
+              color: colors.surface,
               borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
+                  color: colors.shadow,
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),
               ],
             ),
-            child: const FaIcon(
+            child: FaIcon(
               FontAwesomeIcons.graduationCap,
-              color: AppColors.primary,
+              color: colors.primary,
               size: 24,
             ),
           ),
@@ -61,17 +62,17 @@ class _EducationCard extends StatelessWidget {
               children: [
                 Text(
                   education.school,
-                  style: AppTextStyles.subHeader.copyWith(fontSize: 20),
+                  style: AppTextStyles.subHeader(context).copyWith(fontSize: 20),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   "${education.degree} • ${education.period}",
-                  style: AppTextStyles.body.copyWith(
-                    color: AppColors.textSecondary,
+                  style: AppTextStyles.body(context).copyWith(
+                    color: colors.textSecondary,
                   ),
                 ),
                 const SizedBox(height: 8),
-                Text(education.description, style: AppTextStyles.body),
+                Text(education.description, style: AppTextStyles.body(context)),
               ],
             ),
           ),

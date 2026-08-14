@@ -16,7 +16,8 @@ lib/
 ## Patterns to reuse
 
 - One StatelessWidget per section unless local form state is required
-- Breakpoint: `maxWidth > 800` for desktop vs mobile
+- Colors via `AppColors.of(context)` (`light` / `dark`)
+- Theme toggle lives in the navbar; `ThemeMode` is held in `PortfolioApp`
 - Content width capped at `AppConstants.maxContentWidth` (1200)
 - External links: `launchUrl(..., mode: LaunchMode.externalApplication)`
 - Contact form: `mailto:` with encoded subject/body — no backend

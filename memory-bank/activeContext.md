@@ -1,12 +1,12 @@
 # Active Context
 
 **Last updated:** 2026-08-14
-**Focus:** PDS branding deployed to GitHub Pages.
+**Focus:** Dark theme + high-contrast favicon.
 
 ## Current state
 
 Public GitHub Pages site at https://ukccatc.github.io/portfolio_app/
-Personal hero (Oleg) + company logo (Progressive Development Solutions) in nav/footer/favicon.
+Light/dark via `ThemeMode.system` plus a navbar toggle.
 
 ## Known gaps
 
@@ -14,8 +14,8 @@ Personal hero (Oleg) + company logo (Progressive Development Solutions) in nav/f
 
 ## Decisions
 
-- Brand colors sampled from the logo: teal `#075960`, near-black `#232323`
-- Favicon uses the three-bar mark only, not the wordmark
-- Full logo asset: `assets/branding/pds_logo.png`
-- Contact form uses `mailto:` instead of a backend
+- `AppColors.light` / `AppColors.dark` via `AppColors.of(context)`
+- Favicon is the three-bar mark on teal, plus `favicon.ico?v=3` to bust cache
+- Full logo asset: `assets/branding/pds_logo.png` (transparent background; white plate in dark mode)
+- Contact form uses `mailto:`
 - CV is `web/Oleh_Rostovtsev_CV.pdf` via `Uri.base.resolve`
