@@ -165,5 +165,5 @@ class Data {
   ];
 
   static const String aboutText =
-      "Programming is not just my job, but my main hobby. I enjoy solving complex problems and learning new technologies. In my free time, I stay active with gym and running, and I'm also interested in learning languages. I pride myself on being proactive, responsible, and a self-learner.";
+      "Programming is not just my job, but my main hobby. I enjoy solving complex problems and learning new technologies. In my free time I stay active with gym, running, and teaching yoga (offline and online), and I am also interested in learning languages. I pride myself on being proactive, responsible, and a self-learner.";
 }

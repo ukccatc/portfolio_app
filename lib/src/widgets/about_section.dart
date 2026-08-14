@@ -55,6 +55,10 @@ class AboutSection extends StatelessWidget {
                           icon: FontAwesomeIcons.language,
                           label: "Languages",
                         ),
+                        _InterestChip(
+                          icon: FontAwesomeIcons.spa,
+                          label: "Yoga teaching",
+                        ),
                       ],
                     ),
                   ],
@@ -64,17 +68,14 @@ class AboutSection extends StatelessWidget {
                 const SizedBox(width: 40),
                 Expanded(
                   flex: 1,
-                  child: Container(
-                    height: 300,
-                    decoration: BoxDecoration(
-                      color: AppColors.of(context).primary.withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Center(
-                      child: Icon(
-                        Icons.person,
-                        size: 100,
-                        color: AppColors.of(context).primary,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: Image.asset(
+                        'assets/about/oleh.jpg',
+                        fit: BoxFit.cover,
+                        alignment: Alignment.topCenter,
                       ),
                     ),
                   ),
