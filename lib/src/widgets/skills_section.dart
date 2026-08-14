@@ -46,7 +46,7 @@ class SkillsSection extends StatelessWidget {
                 const SizedBox(height: 32),
               ],
             );
-          }).toList(),
+          }),
         ],
       ),
     );
@@ -64,7 +64,7 @@ class _SkillChip extends StatelessWidget {
       label: Text(skill.name),
       backgroundColor: skill.isLegacy
           ? Colors.grey[200]
-          : AppColors.primary.withOpacity(0.1),
+          : AppColors.primary.withValues(alpha: 0.1),
       labelStyle: TextStyle(
         color: skill.isLegacy ? Colors.grey : AppColors.primary,
         fontWeight: FontWeight.w500,

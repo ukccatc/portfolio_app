@@ -73,7 +73,7 @@ class AboutSection extends StatelessWidget {
                   child: Container(
                     height: 300,
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.1),
+                      color: AppColors.primary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: const Center(

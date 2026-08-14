@@ -6,13 +6,14 @@ class Data {
   static const String goal =
       "Experienced developer seeking a team/project in web development. Passionate about building efficient, scalable, and user-friendly applications.";
   static const String location = "Odessa, Ukraine";
-  static const String email =
-      "contact@example.com"; // Placeholder, user didn't provide actual email
-  static const String phone = "+380 00 000 00 00"; // Placeholder
+  static const String email = "ukccatc@gmail.com";
+  static const String phone = "+380 66 287 40 81";
   static const String linkedIn =
-      "https://linkedin.com/in/oleg-rostovtsev"; // Placeholder
-  static const String github =
-      "https://github.com/oleg-rostovtsev"; // Placeholder
+      "https://www.linkedin.com/in/oleg-rostovtsev";
+  static const String github = "https://github.com/ukccatc";
+  static const String cvFileName = "Oleh_Rostovtsev_CV.pdf";
+
+  static Uri get cvUri => Uri.base.resolve(cvFileName);
 
   static const List<Skill> skills = [
     // Backend

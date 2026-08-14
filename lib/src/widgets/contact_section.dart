@@ -8,6 +8,37 @@ import '../utils/data.dart';
 class ContactSection extends StatelessWidget {
   const ContactSection({super.key});
 
+  Future<void> _openUrl(
+    BuildContext context,
+    Uri uri,
+    String errorMessage,
+  ) async {
+    try {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (_) {
+      if (!context.mounted) return;
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(errorMessage)));
+    }
+  }
+
+  Future<void> _openEmail(BuildContext context) {
+    return _openUrl(
+      context,
+      Uri(scheme: 'mailto', path: Data.email),
+      'Could not open email client',
+    );
+  }
+
+  Future<void> _openPhone(BuildContext context) {
+    return _openUrl(
+      context,
+      Uri(scheme: 'tel', path: Data.phone.replaceAll(' ', '')),
+      'Could not open phone app',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,139 +55,210 @@ class ContactSection extends StatelessWidget {
           LayoutBuilder(
             builder: (context, constraints) {
               final isDesktop = constraints.maxWidth > 800;
-              return Flex(
-                direction: isDesktop ? Axis.horizontal : Axis.vertical,
+              final info = Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Expanded(
-                    flex: isDesktop ? 1 : 0,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _ContactItem(
-                          icon: Icons.email,
-                          title: "Email",
-                          content: Data.email,
-                          onTap: () async {
-                            final Uri emailLaunchUri = Uri(
-                              scheme: 'mailto',
-                              path: Data.email,
-                            );
-                            if (await canLaunchUrl(emailLaunchUri)) {
-                              await launchUrl(emailLaunchUri);
-                            }
-                          },
-                          onCopy: () {
-                            Clipboard.setData(
-                              const ClipboardData(text: Data.email),
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text("Email copied to clipboard"),
-                              ),
-                            );
-                          },
+                  _ContactItem(
+                    icon: Icons.email,
+                    title: "Email",
+                    content: Data.email,
+                    onTap: () => _openEmail(context),
+                    onCopy: () {
+                      Clipboard.setData(
+                        const ClipboardData(text: Data.email),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Email copied to clipboard"),
                         ),
-                        const SizedBox(height: 24),
-                        _ContactItem(
-                          icon: Icons.phone,
-                          title: "Phone",
-                          content: Data.phone,
-                        ),
-                        const SizedBox(height: 24),
-                        _ContactItem(
-                          icon: Icons.location_on,
-                          title: "Location",
-                          content: Data.location,
-                        ),
-                        const SizedBox(height: 40),
-                        Row(
-                          children: [
-                            _SocialButton(
-                              icon: FontAwesomeIcons.linkedin,
-                              url: Data.linkedIn,
-                            ),
-                            const SizedBox(width: 16),
-                            _SocialButton(
-                              icon: FontAwesomeIcons.github,
-                              url: Data.github,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
-                  if (isDesktop) const SizedBox(width: 60),
-                  if (!isDesktop) const SizedBox(height: 40),
-                  Expanded(
-                    flex: isDesktop ? 1 : 0,
-                    child: Container(
-                      padding: const EdgeInsets.all(24),
-                      decoration: BoxDecoration(
-                        color: AppColors.surface,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
+                  const SizedBox(height: 24),
+                  _ContactItem(
+                    icon: Icons.phone,
+                    title: "Phone",
+                    content: Data.phone,
+                    onTap: () => _openPhone(context),
+                    onCopy: () {
+                      Clipboard.setData(ClipboardData(text: Data.phone));
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text("Phone copied to clipboard"),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 24),
+                  _ContactItem(
+                    icon: Icons.location_on,
+                    title: "Location",
+                    content: Data.location,
+                  ),
+                  const SizedBox(height: 40),
+                  Row(
+                    children: [
+                      _SocialButton(
+                        icon: FontAwesomeIcons.linkedin,
+                        url: Data.linkedIn,
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "Send me a message",
-                            style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 24),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: "Name",
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          const TextField(
-                            decoration: InputDecoration(
-                              labelText: "Email",
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          const TextField(
-                            maxLines: 4,
-                            decoration: InputDecoration(
-                              labelText: "Message",
-                              border: OutlineInputBorder(),
-                            ),
-                          ),
-                          const SizedBox(height: 24),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.primary,
-                                foregroundColor: Colors.white,
-                                padding: const EdgeInsets.symmetric(
-                                  vertical: 16,
-                                ),
-                              ),
-                              child: const Text("Send Message"),
-                            ),
-                          ),
-                        ],
+                      const SizedBox(width: 16),
+                      _SocialButton(
+                        icon: FontAwesomeIcons.github,
+                        url: Data.github,
                       ),
-                    ),
+                    ],
                   ),
                 ],
               );
+
+              if (isDesktop) {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(child: info),
+                    const SizedBox(width: 60),
+                    const Expanded(child: _ContactForm()),
+                  ],
+                );
+              }
+
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  info,
+                  const SizedBox(height: 40),
+                  const _ContactForm(),
+                ],
+              );
             },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ContactForm extends StatefulWidget {
+  const _ContactForm();
+
+  @override
+  State<_ContactForm> createState() => _ContactFormState();
+}
+
+class _ContactFormState extends State<_ContactForm> {
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _messageController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _messageController.dispose();
+    super.dispose();
+  }
+
+  String? _mailtoQuery(Map<String, String> params) {
+    return params.entries
+        .map(
+          (e) =>
+              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}',
+        )
+        .join('&');
+  }
+
+  Future<void> _sendMessage() async {
+    final name = _nameController.text.trim();
+    final email = _emailController.text.trim();
+    final message = _messageController.text.trim();
+
+    if (name.isEmpty || email.isEmpty || message.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please fill in all fields')),
+      );
+      return;
+    }
+
+    final uri = Uri(
+      scheme: 'mailto',
+      path: Data.email,
+      query: _mailtoQuery({
+        'subject': 'Portfolio contact from $name',
+        'body': 'From: $name <$email>\n\n$message',
+      }),
+    );
+
+    try {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (_) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Could not open email client')),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            "Send me a message",
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 24),
+          TextField(
+            controller: _nameController,
+            decoration: const InputDecoration(
+              labelText: "Name",
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 16),
+          TextField(
+            controller: _emailController,
+            keyboardType: TextInputType.emailAddress,
+            decoration: const InputDecoration(
+              labelText: "Email",
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 16),
+          TextField(
+            controller: _messageController,
+            maxLines: 4,
+            decoration: const InputDecoration(
+              labelText: "Message",
+              border: OutlineInputBorder(),
+            ),
+          ),
+          const SizedBox(height: 24),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: _sendMessage,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                foregroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+              ),
+              child: const Text("Send Message"),
+            ),
           ),
         ],
       ),
@@ -186,7 +288,7 @@ class _ContactItem extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.1),
+            color: AppColors.primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(icon, color: AppColors.primary),
@@ -243,8 +345,13 @@ class _SocialButton extends StatelessWidget {
     return InkWell(
       onTap: () async {
         final Uri uri = Uri.parse(url);
-        if (await canLaunchUrl(uri)) {
-          await launchUrl(uri);
+        try {
+          await launchUrl(uri, mode: LaunchMode.externalApplication);
+        } catch (_) {
+          if (!context.mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Could not open link')),
+          );
         }
       },
       child: Container(

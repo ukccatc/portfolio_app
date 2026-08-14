@@ -41,7 +41,7 @@ class _ExperienceCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -50,32 +50,49 @@ class _ExperienceCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(experience.role, style: AppTextStyles.subHeader),
-                    const SizedBox(height: 4),
-                    Text(
-                      experience.company,
-                      style: AppTextStyles.body.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: AppColors.primary,
-                      ),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final isNarrow = constraints.maxWidth < 600;
+              final roleAndCompany = Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(experience.role, style: AppTextStyles.subHeader),
+                  const SizedBox(height: 4),
+                  Text(
+                    experience.company,
+                    style: AppTextStyles.body.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.primary,
                     ),
-                  ],
-                ),
-              ),
-              Text(
+                  ),
+                ],
+              );
+              final period = Text(
                 experience.period,
                 style: AppTextStyles.body.copyWith(
                   color: AppColors.textSecondary,
                 ),
-              ),
-            ],
+              );
+
+              if (isNarrow) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    roleAndCompany,
+                    const SizedBox(height: 8),
+                    period,
+                  ],
+                );
+              }
+
+              return Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(child: roleAndCompany),
+                  period,
+                ],
+              );
+            },
           ),
           const SizedBox(height: 16),
           Text(experience.description, style: AppTextStyles.body),

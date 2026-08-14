@@ -1,0 +1,14 @@
+---
+description: Read and update the portfolio_app memory bank
+alwaysApply: true
+---
+
+# Memory Bank
+
+Before changing this project, read `memory-bank/activeContext.md` and `memory-bank/systemPatterns.md`.
+
+After a completed task, update:
+- `memory-bank/activeContext.md` — current focus, decisions, known issues
+- `memory-bank/progress.md` — what changed
+
+Keep files short. Do not invent architecture. Content lives in `lib/src/utils/data.dart`.
