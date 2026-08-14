@@ -52,7 +52,7 @@ class _EducationCard extends StatelessWidget {
                 ),
               ],
             ),
-            child: const Icon(
+            child: const FaIcon(
               FontAwesomeIcons.graduationCap,
               color: AppColors.primary,
               size: 24,

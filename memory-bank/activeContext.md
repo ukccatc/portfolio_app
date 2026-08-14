@@ -18,4 +18,5 @@ Working Flutter Web portfolio on `main`. Contacts and CV are live in code.
 - GitHub URL: `https://github.com/ukccatc`
 - LinkedIn: `https://www.linkedin.com/in/oleg-rostovtsev`
 - CV is a static file in `web/Oleh_Rostovtsev_CV.pdf`, opened via `Uri.base.resolve` so GitHub Pages `--base-href` still works
+- `font_awesome_flutter` 11 + `FaIcon` required: Flutter 3.47 made `IconData` final
 - Memory bank follows Bowls file names, without `releases/current.yaml`

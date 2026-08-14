@@ -95,7 +95,7 @@ class AboutSection extends StatelessWidget {
 }
 
 class _InterestChip extends StatelessWidget {
-  final IconData icon;
+  final FaIconData icon;
   final String label;
 
   const _InterestChip({required this.icon, required this.label});
@@ -112,7 +112,7 @@ class _InterestChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 16, color: AppColors.primary),
+          FaIcon(icon, size: 16, color: AppColors.primary),
           const SizedBox(width: 8),
           Text(label, style: AppTextStyles.body),
         ],

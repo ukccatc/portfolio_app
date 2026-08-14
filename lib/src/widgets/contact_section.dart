@@ -335,7 +335,7 @@ class _ContactItem extends StatelessWidget {
 }
 
 class _SocialButton extends StatelessWidget {
-  final IconData icon;
+  final FaIconData icon;
   final String url;
 
   const _SocialButton({required this.icon, required this.url});
@@ -360,7 +360,7 @@ class _SocialButton extends StatelessWidget {
           border: Border.all(color: Colors.grey[300]!),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Icon(icon, size: 24, color: AppColors.textPrimary),
+        child: FaIcon(icon, size: 24, color: AppColors.textPrimary),
       ),
     );
   }

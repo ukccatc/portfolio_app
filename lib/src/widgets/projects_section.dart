@@ -72,7 +72,7 @@ class _ProjectCard extends StatelessWidget {
                 ),
               ),
               if (project.link != null)
-                const Icon(
+                const FaIcon(
                   FontAwesomeIcons.github,
                   size: 20,
                   color: AppColors.textSecondary,
